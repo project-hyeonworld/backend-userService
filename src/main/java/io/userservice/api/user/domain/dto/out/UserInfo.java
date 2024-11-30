@@ -10,7 +10,7 @@ import io.userservice.api.user.domain.dto.in.UpdateUserCommand;
 import io.userservice.api.user.infrastructure.entity.RelationType;
 
 import io.userservice.common.mapper.ObjectrMapper;
-import io.userservice.api.user.infrastructure.entity.UserEntity;
+import io.userservice.api.user.infrastructure.entity.User;
 
 
 
@@ -19,7 +19,7 @@ import io.userservice.api.user.infrastructure.entity.UserEntity;
  * @since : 24. 9. 3.
  */
 @Getter
-public class User {
+public class UserInfo {
 
     Long id;
     String name;
@@ -29,8 +29,8 @@ public class User {
     boolean login;
     boolean inGame;
 
-    private UserEntity.UserEntityBuilder initializeEntity() {
-        return UserEntity.builder()
+    private User.UserBuilder initializeEntity() {
+        return User.builder()
                 .id(this.id)
                 .name(this.name)
                 .relationType(this.relationType)
@@ -40,19 +40,19 @@ public class User {
                 .relation(this.relation);
     }
 
-    public static User from(UserEntity userEntity) {
-        return ObjectrMapper.convert(userEntity, User.class);
+    public static UserInfo from(User user) {
+        return ObjectrMapper.convert(user, UserInfo.class);
     }
 
-    public static User fromDelete(int ret) {
+    public static UserInfo fromDelete(int ret) {
         if (ret == 1) {
-            return new User();
+            return new UserInfo();
         }
         throw new ServerException(ExceptionResponseCode.USER_NOT_FOUND);
     }
 
-    public static UserEntity toEntity(CreateUserCommand command, PostpositionType josa) {
-        return UserEntity.defaultBuilder()
+    public static User toEntity(CreateUserCommand command, PostpositionType josa) {
+        return User.defaultBuilder()
                 .name(command.name())
                 .relationType(RelationType.from(command.relationType()))
                 .postpositionType(josa)
@@ -60,26 +60,26 @@ public class User {
                 .build();
     }
 
-    public UserEntity toEntity() {
+    public User toEntity() {
         return initializeEntity()
                 .build();
     }
 
-    public UserEntity entityToInit() {
+    public User entityToInit() {
         return initializeEntity()
                 .login(false)
                 .inGame(false)
                 .build();
     }
 
-    public UserEntity entityToSession(boolean login) {
+    public User entityToSession(boolean login) {
         return initializeEntity()
                 .login(login)
                 .inGame(false)
                 .build();
     }
 
-    public UserEntity entityToGame(boolean inGame) {
+    public User entityToGame(boolean inGame) {
         return initializeEntity()
                 .login(true)
                 .inGame(inGame)

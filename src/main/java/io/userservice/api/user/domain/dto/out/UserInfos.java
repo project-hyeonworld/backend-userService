@@ -1,9 +1,8 @@
 package io.userservice.api.user.domain.dto.out;
 
-import io.userservice.api.user.infrastructure.entity.UserEntity;
+import io.userservice.api.user.infrastructure.entity.User;
 import io.userservice.api.user.infrastructure.jpa.UserJpaRepository.UserNameProjection;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,17 +12,17 @@ import java.util.stream.Collectors;
  * @author : hyeonwoody@gmail.com
  * @since : 24. 9. 3.
  */
-public class Users {
+public class UserInfos {
 
-    private final List<User> users;
+    private final List<UserInfo> userInfos;
 
-    public Users(List<User> users) {
-        this.users = new ArrayList<>(users);
+    public UserInfos(List<UserInfo> userInfos) {
+        this.userInfos = new ArrayList<>(userInfos);
     }
 
-    public static Users from(List<UserEntity> userEntities) {
-        return new Users(userEntities.stream()
-                .map(User::from)
+    public static UserInfos from(List<User> userEntities) {
+        return new UserInfos(userEntities.stream()
+                .map(UserInfo::from)
                 .collect(Collectors.toList()));
     }
 
@@ -36,11 +35,11 @@ public class Users {
                 ));
     }
 
-    public List<User> getItems() {
-        return users;
+    public List<UserInfo> getItems() {
+        return userInfos;
     }
 
     public int size() {
-        return users.size();
+        return userInfos.size();
     }
 }

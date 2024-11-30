@@ -1,6 +1,6 @@
 package io.userservice.api.user.domain.dto.out;
 
-import io.userservice.api.user.infrastructure.entity.UserEntity;
+import io.userservice.api.user.infrastructure.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +12,14 @@ public class NameGameStatuses {
 
     private List<NameGameStatus> nameGameStatuses;
 
-    public NameGameStatuses(List<UserEntity> userEntities) {
+    public NameGameStatuses(List<User> userEntities) {
         this.nameGameStatuses = new ArrayList<>();
         userEntities.stream()
                 .peek(user -> this.nameGameStatuses.add(NameGameStatus.from(user.getName(), user.getInGame())));
 
     }
 
-    public static NameGameStatuses from(List<UserEntity> userEntities) {
+    public static NameGameStatuses from(List<User> userEntities) {
         return new NameGameStatuses(userEntities);
     }
 

@@ -3,7 +3,7 @@ package io.userservice.api.user.infrastructure;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import io.userservice.api.user.infrastructure.entity.UserEntity;
+import io.userservice.api.user.infrastructure.entity.User;
 import io.userservice.api.user.infrastructure.jpa.UserJpaRepository;
 import io.userservice.api.user.infrastructure.jpa.UserJpaRepository.UserNameProjection;
 import lombok.RequiredArgsConstructor;
@@ -20,17 +20,17 @@ public class UserRepositoryImpl implements UserRepository {
     private final UserJpaRepository userJpaRepository;
 
     @Override
-    public UserEntity save(UserEntity userEntity) {
-        return userJpaRepository.save(userEntity);
+    public User save(User user) {
+        return userJpaRepository.save(user);
     }
 
     @Override
-    public List<UserEntity> findAll() {
+    public List<User> findAll() {
         return userJpaRepository.findAll();
     }
 
     @Override
-    public Optional<UserEntity> findById(long userId) {
+    public Optional<User> findById(long userId) {
         return userJpaRepository.findById(userId);
     }
 
@@ -40,12 +40,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<UserEntity> findByLogin(boolean login) {
+    public List<User> findByLogin(boolean login) {
         return userJpaRepository.findByLogin(login);
     }
 
     @Override
-    public Optional<UserEntity> findByName(String userName) {
+    public Optional<User> findByName(String userName) {
         return userJpaRepository.findByName(userName);
     }
 

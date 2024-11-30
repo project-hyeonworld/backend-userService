@@ -1,8 +1,9 @@
 package io.userservice.api.user.domain;
 
-import static io.userservice.api.user.domain.dto.out.User.*;
-import static io.userservice.api.user.domain.dto.out.Users.*;
+import static io.userservice.api.user.domain.dto.out.UserInfo.*;
+import static io.userservice.api.user.domain.dto.out.UserInfos.*;
 
+import io.userservice.api.user.domain.dto.out.UserInfo;
 import io.userservice.common.exception.ExceptionResponseCode;
 import io.userservice.common.exception.UserException;
 import io.userservice.api.postPosition.PostpositionService;
@@ -10,8 +11,7 @@ import io.userservice.api.user.domain.dto.in.CreateUserCommand;
 import io.userservice.api.user.domain.dto.in.RetrieveUserWaitingListCommand;
 import io.userservice.api.user.domain.dto.in.UpdateUserCommand;
 import io.userservice.api.user.domain.dto.out.NameGameStatuses;
-import io.userservice.api.user.domain.dto.out.User;
-import io.userservice.api.user.domain.dto.out.Users;
+import io.userservice.api.user.domain.dto.out.UserInfos;
 import io.userservice.api.user.infrastructure.entity.RelationType;
 import io.userservice.api.user.infrastructure.UserRepository;
 import java.util.Collections;
@@ -36,69 +36,69 @@ public class UserService {
     private final UserRepository userRepository;
     private final PostpositionService postpositionService;
 
-    public User createUser(CreateUserCommand command) {
+    public UserInfo createUser(CreateUserCommand command) {
 
         return from(userRepository.save(toEntity(command, postpositionService.josa(command.name()))));
     }
 
-    public Users getAllUsers() {
+    public UserInfos getAllUsers() {
         return from(userRepository.findAll());
     }
 
     @Transactional(readOnly = true)
-    public User getUserById(long userId) {
+    public UserInfo getUserById(long userId) {
         return from(userRepository.findById(userId)
                 .orElseThrow(() -> new UserException(ExceptionResponseCode.USER_NOT_FOUND, String.valueOf(userId)))
         );
     }
 
     @Transactional
-    public User updateUser(UpdateUserCommand command) {
-        User user = this.getUserById(command.userId());
-        user.update(command);
-        return from(userRepository.save(user.toEntity()));
+    public UserInfo updateUser(UpdateUserCommand command) {
+        UserInfo userInfo = this.getUserById(command.userId());
+        userInfo.update(command);
+        return from(userRepository.save(userInfo.toEntity()));
     }
 
     @Transactional
-    public User deleteUser(long userId) {
-        return User.fromDelete(userRepository.deleteById(userId));
+    public UserInfo deleteUser(long userId) {
+        return UserInfo.fromDelete(userRepository.deleteById(userId));
     }
 
     public int initUsers() {
-        Users users = Users.from(userRepository.findByLogin(true));
-        users.getItems().forEach(user -> userRepository.save(user.entityToInit()));
-        return users.size();
+        UserInfos userInfos = UserInfos.from(userRepository.findByLogin(true));
+        userInfos.getItems().forEach(userInfo -> userRepository.save(userInfo.entityToInit()));
+        return userInfos.size();
     }
 
     @Transactional(readOnly = true)
-    public User getUserByName(String userName) {
+    public UserInfo getUserByName(String userName) {
         return from(userRepository.findByName(userName)
                 .orElseThrow(() -> new UserException(ExceptionResponseCode.USER_NOT_FOUND))
         );
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public User confirmLogin(long userId) {
-        User user = this.getUserById(userId);
-        if (user.isLogin()) {
+    public UserInfo confirmLogin(long userId) {
+        UserInfo userInfo = this.getUserById(userId);
+        if (userInfo.isLogin()) {
             throw new UserException(ExceptionResponseCode.USER_ALREADY_LOGGED_IN);
         }
-        return from(userRepository.save(user.entityToSession(true)));
+        return from(userRepository.save(userInfo.entityToSession(true)));
     }
 
-    public User confirmLogOut(long userId) {
-        User user = this.getUserById(userId);
-        return from(userRepository.save(user.entityToSession(false)));
+    public UserInfo confirmLogOut(long userId) {
+        UserInfo userInfo = this.getUserById(userId);
+        return from(userRepository.save(userInfo.entityToSession(false)));
     }
 
-    public User confirmEnterGame(long userId) {
-        User user = this.getUserById(userId);
-        return from(userRepository.save(user.entityToGame(true)));
+    public UserInfo confirmEnterGame(long userId) {
+        UserInfo userInfo = this.getUserById(userId);
+        return from(userRepository.save(userInfo.entityToGame(true)));
     }
 
-    public User confirmExitGame(long userId) {
-        User user = this.getUserById(userId);
-        return from(userRepository.save(user.entityToGame(false)));
+    public UserInfo confirmExitGame(long userId) {
+        UserInfo userInfo = this.getUserById(userId);
+        return from(userRepository.save(userInfo.entityToGame(false)));
     }
 
     public List<String> retrieveWaitingList(RetrieveUserWaitingListCommand command) {
@@ -107,15 +107,15 @@ public class UserService {
     }
 
     public String getNameById(long userId) {
-        User user = this.getUserById(userId);
-        return user.getName();
+        UserInfo userInfo = this.getUserById(userId);
+        return userInfo.getName();
     }
 
     public Map<Long, String> getNamesByIds(Set<Long> userIds) {
         if (userIds.isEmpty()) {
             return Collections.emptyMap();
         }
-        return Users.getNames(userRepository.findNamesByIds(userIds));
+        return UserInfos.getNames(userRepository.findNamesByIds(userIds));
     }
 
     public Map<Integer, String> getRelationType() {

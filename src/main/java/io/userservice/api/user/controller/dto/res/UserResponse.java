@@ -1,9 +1,9 @@
 package io.userservice.api.user.controller.dto.res;
 
+import io.userservice.api.user.domain.dto.out.UserInfo;
 import java.util.List;
 import java.util.stream.Collectors;
-import io.userservice.api.user.domain.dto.out.User;
-import io.userservice.api.user.domain.dto.out.Users;
+import io.userservice.api.user.domain.dto.out.UserInfos;
 
 /**
  * @author : hyeonwoody@gmail.com
@@ -17,18 +17,18 @@ public record UserResponse(
         Byte relation
 ) {
 
-    public static List<UserResponse> from(Users users) {
-        return users.getItems().stream()
+    public static List<UserResponse> from(UserInfos userInfos) {
+        return userInfos.getItems().stream()
                 .map(UserResponse::from)
                 .collect(Collectors.toList());
     }
 
-    public static UserResponse from(User user) {
+    public static UserResponse from(UserInfo userInfo) {
         return new UserResponse(
-                user.getId(),
-                user.getName(),
-                user.getRelationType().ordinal(),
-                user.getNickname(),
-                user.getRelation());
+                userInfo.getId(),
+                userInfo.getName(),
+                userInfo.getRelationType().ordinal(),
+                userInfo.getNickname(),
+                userInfo.getRelation());
     }
 }
