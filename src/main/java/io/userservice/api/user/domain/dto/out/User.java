@@ -2,14 +2,14 @@ package io.userservice.api.user.domain.dto.out;
 
 import java.util.Objects;
 import lombok.Getter;
-import io.userservice.api.common.exception.ExceptionResponseCode;
-import io.userservice.api.common.exception.ServerException;
+import io.userservice.common.exception.ExceptionResponseCode;
+import io.userservice.common.exception.ServerException;
 import io.userservice.api.postPosition.constant.PostpositionType;
 import io.userservice.api.user.domain.dto.in.CreateUserCommand;
 import io.userservice.api.user.domain.dto.in.UpdateUserCommand;
 import io.userservice.api.user.infrastructure.entity.RelationType;
 
-import io.userservice.api.common.mapper.ObjectrMapper;
+import io.userservice.common.mapper.ObjectrMapper;
 import io.userservice.api.user.infrastructure.entity.UserEntity;
 
 

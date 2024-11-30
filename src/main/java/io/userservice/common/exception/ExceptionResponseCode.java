@@ -1,4 +1,4 @@
-package io.userservice.api.common.exception;
+package io.userservice.common.exception;
 
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;

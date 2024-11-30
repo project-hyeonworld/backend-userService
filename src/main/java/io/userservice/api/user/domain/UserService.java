@@ -3,8 +3,8 @@ package io.userservice.api.user.domain;
 import static io.userservice.api.user.domain.dto.out.User.*;
 import static io.userservice.api.user.domain.dto.out.Users.*;
 
-import io.userservice.api.common.exception.ExceptionResponseCode;
-import io.userservice.api.common.exception.UserException;
+import io.userservice.common.exception.ExceptionResponseCode;
+import io.userservice.common.exception.UserException;
 import io.userservice.api.postPosition.PostpositionService;
 import io.userservice.api.user.domain.dto.in.CreateUserCommand;
 import io.userservice.api.user.domain.dto.in.RetrieveUserWaitingListCommand;

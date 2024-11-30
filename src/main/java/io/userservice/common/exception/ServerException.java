@@ -1,4 +1,4 @@
-package io.userservice.api.common.exception;
+package io.userservice.common.exception;
 
 import lombok.Getter;
 

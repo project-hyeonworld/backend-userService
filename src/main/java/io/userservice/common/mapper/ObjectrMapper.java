@@ -1,4 +1,4 @@
-package io.userservice.api.common.mapper;
+package io.userservice.common.mapper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
