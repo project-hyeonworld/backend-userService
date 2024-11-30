@@ -82,4 +82,11 @@ public class UserController {
     public ResponseEntity<RelationTypeResponse> retrieveRelationType() {
         return ResponseEntity.ok(RelationTypeResponse.from(userService.getRelationType()));
     }
+
+    @GetMapping("/{userId}/name")
+    public ResponseEntity<String> getNames(
+            @PathVariable("userId") long userId
+    ) {
+        return ResponseEntity.ok(userService.getNameById(userId));
+    }
 }
