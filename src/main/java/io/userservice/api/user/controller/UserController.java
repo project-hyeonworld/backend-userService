@@ -1,5 +1,6 @@
 package io.userservice.api.user.controller;
 
+import io.userservice.api.user.controller.dto.res.UserRelationTypeRepsonse;
 import java.util.List;
 import io.userservice.api.user.controller.dto.req.CreateUserRequest;
 import io.userservice.api.user.controller.dto.req.UpdateUserRequest;
@@ -39,6 +40,13 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserResponse>> retrieveAllUsers() {
         return ResponseEntity.ok(UserResponse.from(userService.getAllUsers()));
+    }
+
+    @GetMapping("/relation-type")
+    public ResponseEntity<UserRelationTypeRepsonse> getRelationTypeByName(
+            @RequestParam("name") String name
+    ) {
+        return ResponseEntity.ok(UserRelationTypeRepsonse.from(userService.getUserByName(name)));
     }
 
     @GetMapping("/{userId}")
@@ -83,10 +91,4 @@ public class UserController {
         return ResponseEntity.ok(RelationTypeResponse.from(userService.getRelationType()));
     }
 
-    @GetMapping("/{userId}/name")
-    public ResponseEntity<String> getNames(
-            @PathVariable("userId") long userId
-    ) {
-        return ResponseEntity.ok(userService.getNameById(userId));
-    }
 }
