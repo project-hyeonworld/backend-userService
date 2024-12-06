@@ -49,6 +49,13 @@ public class UserController {
         return ResponseEntity.ok(UserRelationTypeRepsonse.from(userService.getUserByName(name)));
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<UserRelationTypeRepsonse> getUserLoginByName(
+            @RequestParam(name = "name") String name
+    ) {
+        return ResponseEntity.ok(UserRelationTypeRepsonse.from(userService.getUserLoginByName(name)));
+    }
+
     @GetMapping("/{userId}")
     public ResponseEntity<UserResponse> retrieveUser(@PathVariable("userId") long userId) {
         return ResponseEntity.ok(UserResponse.from(userService.getUserById(userId)));

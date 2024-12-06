@@ -70,6 +70,14 @@ public class UserService {
         return userInfos.size();
     }
 
+    public UserInfo getUserLoginByName(String name) {
+        UserInfo userInfo = getUserByName(name);
+        if (userInfo.isLogin()) {
+            throw new UserException(ExceptionResponseCode.USER_ALREADY_LOGGED_IN);
+        }
+        return userInfo;
+    }
+
     @Transactional(readOnly = true)
     public UserInfo getUserByName(String userName) {
         return from(userRepository.findByName(userName)
@@ -123,4 +131,6 @@ public class UserService {
                 .collect(Collectors.toMap(RelationType::ordinal, RelationType::getName,
                         (existing, replacement) -> existing, HashMap::new));
     }
+
+
 }
