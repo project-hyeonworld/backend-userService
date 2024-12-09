@@ -1,4 +1,4 @@
-package io.userservice.api.user.domain.dto.out;
+package io.userservice.api.user.business.domain.out;
 
 import io.userservice.api.user.infrastructure.entity.User;
 import java.util.ArrayList;

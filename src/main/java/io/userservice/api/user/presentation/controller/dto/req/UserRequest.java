@@ -1,4 +1,4 @@
-package io.userservice.api.user.controller.dto.req;
+package io.userservice.api.user.presentation.controller.dto.req;
 
 /**
  * @author : hyeonwoody@gmail.com

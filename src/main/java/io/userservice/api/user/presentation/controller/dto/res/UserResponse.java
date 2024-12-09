@@ -1,9 +1,9 @@
-package io.userservice.api.user.controller.dto.res;
+package io.userservice.api.user.presentation.controller.dto.res;
 
-import io.userservice.api.user.domain.dto.out.UserInfo;
+import io.userservice.api.user.business.domain.out.UserInfo;
 import java.util.List;
 import java.util.stream.Collectors;
-import io.userservice.api.user.domain.dto.out.UserInfos;
+import io.userservice.api.user.business.domain.out.UserInfos;
 
 /**
  * @author : hyeonwoody@gmail.com

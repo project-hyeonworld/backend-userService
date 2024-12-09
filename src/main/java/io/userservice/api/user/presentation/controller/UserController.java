@@ -1,14 +1,14 @@
-package io.userservice.api.user.controller;
+package io.userservice.api.user.presentation.controller;
 
-import io.userservice.api.user.controller.dto.res.UserRelationTypeRepsonse;
+import io.userservice.api.user.presentation.controller.dto.res.UserRelationTypeRepsonse;
 import java.util.List;
-import io.userservice.api.user.controller.dto.req.CreateUserRequest;
-import io.userservice.api.user.controller.dto.req.UpdateUserRequest;
-import io.userservice.api.user.controller.dto.res.RelationTypeResponse;
-import io.userservice.api.user.controller.dto.res.UserResponse;
-import io.userservice.api.user.controller.dto.res.UserWaitingListResponse;
-import io.userservice.api.user.domain.dto.in.RetrieveUserWaitingListCommand;
-import io.userservice.api.user.domain.UserService;
+import io.userservice.api.user.presentation.controller.dto.req.CreateUserRequest;
+import io.userservice.api.user.presentation.controller.dto.req.UpdateUserRequest;
+import io.userservice.api.user.presentation.controller.dto.res.RelationTypeResponse;
+import io.userservice.api.user.presentation.controller.dto.res.UserResponse;
+import io.userservice.api.user.presentation.controller.dto.res.UserWaitingListResponse;
+import io.userservice.api.user.business.domain.in.RetrieveUserWaitingListCommand;
+import io.userservice.api.user.business.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,13 +47,6 @@ public class UserController {
             @RequestParam("name") String name
     ) {
         return ResponseEntity.ok(UserRelationTypeRepsonse.from(userService.getUserByName(name)));
-    }
-
-    @GetMapping("/login")
-    public ResponseEntity<UserRelationTypeRepsonse> getUserLoginByName(
-            @RequestParam(name = "name") String name
-    ) {
-        return ResponseEntity.ok(UserRelationTypeRepsonse.from(userService.getUserLoginByName(name)));
     }
 
     @GetMapping("/{userId}")

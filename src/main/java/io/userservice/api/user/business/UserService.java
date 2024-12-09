@@ -1,17 +1,18 @@
-package io.userservice.api.user.domain;
+package io.userservice.api.user.business;
 
-import static io.userservice.api.user.domain.dto.out.UserInfo.*;
-import static io.userservice.api.user.domain.dto.out.UserInfos.*;
+import static io.userservice.api.user.business.domain.out.UserInfo.from;
+import static io.userservice.api.user.business.domain.out.UserInfo.toEntity;
+import static io.userservice.api.user.business.domain.out.UserInfos.from;
 
-import io.userservice.api.user.domain.dto.out.UserInfo;
+import io.userservice.api.user.business.domain.in.UpdateUserCommand;
+import io.userservice.api.user.business.domain.out.UserInfo;
 import io.userservice.common.exception.ExceptionResponseCode;
 import io.userservice.common.exception.UserException;
 import io.userservice.api.postPosition.PostpositionService;
-import io.userservice.api.user.domain.dto.in.CreateUserCommand;
-import io.userservice.api.user.domain.dto.in.RetrieveUserWaitingListCommand;
-import io.userservice.api.user.domain.dto.in.UpdateUserCommand;
-import io.userservice.api.user.domain.dto.out.NameGameStatuses;
-import io.userservice.api.user.domain.dto.out.UserInfos;
+import io.userservice.api.user.business.domain.in.CreateUserCommand;
+import io.userservice.api.user.business.domain.in.RetrieveUserWaitingListCommand;
+import io.userservice.api.user.business.domain.out.NameGameStatuses;
+import io.userservice.api.user.business.domain.out.UserInfos;
 import io.userservice.api.user.infrastructure.entity.RelationType;
 import io.userservice.api.user.infrastructure.UserRepository;
 import java.util.Collections;
@@ -22,7 +23,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -85,20 +85,6 @@ public class UserService {
         );
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public UserInfo confirmLogin(long userId) {
-        UserInfo userInfo = this.getUserById(userId);
-        if (userInfo.isLogin()) {
-            throw new UserException(ExceptionResponseCode.USER_ALREADY_LOGGED_IN);
-        }
-        return from(userRepository.save(userInfo.entityToSession(true)));
-    }
-
-    public UserInfo confirmLogOut(long userId) {
-        UserInfo userInfo = this.getUserById(userId);
-        return from(userRepository.save(userInfo.entityToSession(false)));
-    }
-
     public UserInfo confirmEnterGame(long userId) {
         UserInfo userInfo = this.getUserById(userId);
         return from(userRepository.save(userInfo.entityToGame(true)));
@@ -132,5 +118,16 @@ public class UserService {
                         (existing, replacement) -> existing, HashMap::new));
     }
 
+    public UserInfo confirmLogin(long userId) {
+        UserInfo userInfo = this.getUserById(userId);
+        if (userInfo.isLogin()) {
+            throw new UserException(ExceptionResponseCode.USER_ALREADY_LOGGED_IN);
+        }
+        return from(userRepository.save(userInfo.entityToSession(true)));
+    }
 
+    public UserInfo confirmLogout(long userId) {
+        UserInfo userInfo = this.getUserById(userId);
+        return from(userRepository.save(userInfo.entityToSession(false)));
+    }
 }

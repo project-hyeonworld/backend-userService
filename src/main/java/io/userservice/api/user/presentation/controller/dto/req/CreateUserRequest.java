@@ -1,6 +1,6 @@
-package io.userservice.api.user.controller.dto.req;
+package io.userservice.api.user.presentation.controller.dto.req;
 
-import io.userservice.api.user.domain.dto.in.CreateUserCommand;
+import io.userservice.api.user.business.domain.in.CreateUserCommand;
 
 /**
  * @author : hyeonwoody@gmail.com

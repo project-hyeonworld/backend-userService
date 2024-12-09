@@ -1,6 +1,6 @@
-package io.userservice.api.user.controller.dto.req;
+package io.userservice.api.user.presentation.controller.dto.req;
 
-import io.userservice.api.user.domain.dto.in.RetrieveUserWaitingListCommand;
+import io.userservice.api.user.business.domain.in.RetrieveUserWaitingListCommand;
 
 /**
  * @author : hyeonwoody@gmail.com

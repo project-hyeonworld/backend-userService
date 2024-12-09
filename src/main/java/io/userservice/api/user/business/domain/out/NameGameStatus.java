@@ -1,4 +1,4 @@
-package io.userservice.api.user.domain.dto.out;
+package io.userservice.api.user.business.domain.out;
 
 /**
  * @author : hyeonwoody@gmail.com

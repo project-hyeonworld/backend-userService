@@ -1,4 +1,4 @@
-package io.userservice.api.user.domain.dto.in;
+package io.userservice.api.user.business.domain.in;
 
 import java.util.Optional;
 

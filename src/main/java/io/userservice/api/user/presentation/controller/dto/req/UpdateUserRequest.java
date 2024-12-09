@@ -1,7 +1,7 @@
-package io.userservice.api.user.controller.dto.req;
+package io.userservice.api.user.presentation.controller.dto.req;
 
 import java.util.Optional;
-import io.userservice.api.user.domain.dto.in.UpdateUserCommand;
+import io.userservice.api.user.business.domain.in.UpdateUserCommand;
 
 /**
  * @author : hyeonwoody@gmail.com

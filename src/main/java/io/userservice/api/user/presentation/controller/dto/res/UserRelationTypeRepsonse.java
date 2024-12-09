@@ -1,6 +1,6 @@
-package io.userservice.api.user.controller.dto.res;
+package io.userservice.api.user.presentation.controller.dto.res;
 
-import io.userservice.api.user.domain.dto.out.UserInfo;
+import io.userservice.api.user.business.domain.out.UserInfo;
 
 /**
  * @author : hyeonwoody@gmail.com

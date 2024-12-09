@@ -1,4 +1,4 @@
-package io.userservice.api.user.controller.dto.res;
+package io.userservice.api.user.presentation.controller.dto.res;
 
 import java.util.List;
 
