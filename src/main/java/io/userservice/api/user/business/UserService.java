@@ -130,4 +130,9 @@ public class UserService {
         UserInfo userInfo = this.getUserById(userId);
         return from(userRepository.save(userInfo.entityToSession(false)));
     }
+
+    public Integer getRelationTypeBy(long userId) {
+        UserInfo userInfo = this.getUserById(userId);
+        return userInfo.getRelationType().ordinal();
+    }
 }
