@@ -22,7 +22,7 @@ public class LoginKafkaReceiver extends GenericKafkaReceiver<LoginEvent> {
     }
 
     @Override
-    protected void execute() {
+    public void execute() {
         while (true) {
             handleEvents(manager.receive());
         }
