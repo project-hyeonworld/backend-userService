@@ -1,5 +1,6 @@
 package io.userservice.common.event.kafka.consumer;
 
+import io.userservice.common.exception.UserException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -22,15 +23,16 @@ public class KafkaReceiverRunner implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         ExecutorService executorService = Executors.newFixedThreadPool(receivers.size());
         for (GenericKafkaReceiver receiver : receivers) {
             executorService.submit(() -> {
-                try {
-                    receiver.execute();
-                } catch (Exception e) {
-                    System.err.println("Error in receiver: " + e.getMessage());
-                    e.printStackTrace();
+                while (true) {
+                    try {
+                        receiver.execute();
+                    } catch (UserException e) {
+                        System.err.println("Error in Receiver : " + e.getMessage());
+                    }
                 }
             });
         }
