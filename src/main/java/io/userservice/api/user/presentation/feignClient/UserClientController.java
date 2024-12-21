@@ -1,7 +1,9 @@
 package io.userservice.api.user.presentation.feignClient;
 
 import io.userservice.api.user.business.UserService;
-import io.userservice.api.user.presentation.controller.dto.res.UserRelationTypeRepsonse;
+import io.userservice.api.user.presentation.controller.dto.res.UserNameRelationTypeResponse;
+import io.userservice.api.user.presentation.controller.dto.res.UserRelationTypeResponse;
+import jakarta.ws.rs.Path;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +25,17 @@ public class UserClientController {
     private final UserService userService;
 
     @GetMapping("/authentication")
-    public ResponseEntity<UserRelationTypeRepsonse> getUserAuthenticationByName(
+    public ResponseEntity<UserRelationTypeResponse> getUserAuthenticationByName(
             @RequestParam(name = "name") String name
     ) {
-        return ResponseEntity.ok(UserRelationTypeRepsonse.from(userService.getUserLoginByName(name)));
+        return ResponseEntity.ok(UserRelationTypeResponse.from(userService.getUserLoginByName(name)));
+    }
+
+    @GetMapping("/{userId}/in-game")
+    public ResponseEntity<UserNameRelationTypeResponse> getUserNameRelationTypeById(
+            @PathVariable long userId
+    ) {
+        return ResponseEntity.ok(UserNameRelationTypeResponse.from(userService.getUserById(userId)));
     }
 
     @PatchMapping("/{userId}/authentication/login")
@@ -40,5 +49,19 @@ public class UserClientController {
     public void confirmLogout(
             @PathVariable long userId) {
         userService.confirmLogout(userId);
+    }
+
+    @GetMapping("/{userId}/relation-type")
+    public ResponseEntity<Integer> getRelationTypeById(
+            @PathVariable long userId
+    ) {
+        return ResponseEntity.ok(userService.getRelationTypeBy(userId));
+    }
+
+    @GetMapping("/{userId}/name")
+    public ResponseEntity<String> getNameById(
+            @PathVariable long userId
+    ) {
+        return ResponseEntity.ok(userService.getNameById(userId));
     }
 }
