@@ -13,12 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogoutKafkaReceiver extends GenericKafkaReceiver<LogoutEvent> {
 
+    private final GenericKafkaConsumerManager<LogoutEvent> manager;
     private final UserEventPublisher publisher;
 
     protected LogoutKafkaReceiver(
-            GenericKafkaConsumerManager<LogoutEvent> kafkaConsumerManager, UserEventPublisher publisher) {
-        super(kafkaConsumerManager);
-        this.publisher = publisher;
+            GenericKafkaConsumerManager<LogoutEvent> kafkaConsumerManager, UserEventPublisher userEventPublisher) {
+        manager = kafkaConsumerManager;
+        publisher = userEventPublisher;
     }
 
     @Override
