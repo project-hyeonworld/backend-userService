@@ -8,12 +8,6 @@ import io.userservice.common.event.CustomEvent;
  */
 public abstract class GenericKafkaReceiver<E extends CustomEvent> implements KafkaReceiver<E> {
 
-    protected GenericKafkaConsumerManager<E> manager;
-
-    protected GenericKafkaReceiver(GenericKafkaConsumerManager<E> kafkaConsumerManager) {
-        manager = kafkaConsumerManager;
-    }
-
     protected abstract void execute();
     protected abstract void handleEvent(E event);
 
