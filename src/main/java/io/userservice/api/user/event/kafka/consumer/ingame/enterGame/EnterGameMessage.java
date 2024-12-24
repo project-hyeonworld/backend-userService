@@ -1,6 +1,7 @@
 package io.userservice.api.user.event.kafka.consumer.ingame.enterGame;
 
 import io.userservice.common.event.CustomEvent;
+import io.userservice.common.event.kafka.consumer.message.Message;
 
 /**
  * @author : hyeonwoody@gmail.com
@@ -8,7 +9,7 @@ import io.userservice.common.event.CustomEvent;
  */
 public record EnterGameMessage (
         long userId
-) implements EnterGameEvent {
+) implements EnterGameEvent, Message {
 
     @Override
     public Class<? extends CustomEvent> getEventClass() {

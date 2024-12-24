@@ -1,12 +1,11 @@
 package io.userservice.api.user.event.kafka.consumer.ingame.enterGame;
 
-import io.userservice.api.user.event.kafka.UserEvent;
-import io.userservice.common.event.kafka.consumer.message.Message;
+import io.userservice.api.user.event.kafka.consumer.ingame.IngameEvent;
 
 /**
  * @author : hyeonwoody@gmail.com
  * @since : 24. 12. 22.
  */
-public interface EnterGameEvent<T extends Message> extends UserEvent, Message {
+public interface EnterGameEvent extends IngameEvent {
 
 }
