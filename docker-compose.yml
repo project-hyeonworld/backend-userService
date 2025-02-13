@@ -6,8 +6,6 @@ services:
             context: ./mysql
             dockerfile: Dockerfile
         restart: always
-        ports:
-            - {MYSQL_PORT}:3306
         volumes:
             - ./mysql_data:/var/lib/mysql
         network_mode: "host"
@@ -27,12 +25,12 @@ services:
         container_name: zookeeper
         network_mode: "host"
     kafka:
-      build:
+        build:
             context: ./kafka
             dockerfile: Dockerfile
-      container_name: kafka
-      network_mode: "host"
-      volumes:
+        container_name: kafka
+        network_mode: "host"
+        volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-      depends_on:
+        depends_on:
             - zookeeper
