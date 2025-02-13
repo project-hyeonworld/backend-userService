@@ -22,15 +22,15 @@ services:
         build:
             context: ./zookeeper
             dockerfile: Dockerfile
-        container_name: zookeeper
-        network_mode: "host"
+        ports:
+            - {DOCKER_ZOOKEEPER_PORT}:{DOCKER_ZOOKEEPER_PORT}
     kafka:
         build:
             context: ./kafka
             dockerfile: Dockerfile
-        container_name: kafka
-        network_mode: "host"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
+        ports:
+            - {DOCKER_KAFKA_PORT}:{DOCKER_KAFKA_PORT}
         depends_on:
             - zookeeper
