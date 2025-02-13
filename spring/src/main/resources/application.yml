@@ -1,0 +1,15 @@
+server:
+  port: {APPLICATION_PORT}
+
+spring:
+  cloud:
+    openfeign:
+      httpclient:
+        hc5:
+          enabled: true
+  application:
+    name: user-service
+  profiles:
+    active: {SPRING_PROFILE_ACTIVE}
+  config:
+    import: configserver:http://{MY_BACKEND_CONFIG_SERVER_IP}:{MY_BACKEND_CONFIG_SERVER_PORT}
