@@ -1,4 +1,9 @@
 version: '3.1'
+
+networks:
+  app-network:
+    driver: bridge
+
 services:
     spring:
         build:
@@ -6,8 +11,7 @@ services:
             dockerfile: Dockerfile
         image: {SERVICES_SPRING_IMAGE_NAME}
         restart: always
-        ports:
-            - {APPLICATION_PORT}:{APPLICATION_PORT}
+        network_mode: "host"
     mysql:
         build:
             context: ./mysql
@@ -17,3 +21,4 @@ services:
             - {MYSQL_PORT}:3306
         volumes:
             - ./mysql_data:/var/lib/mysql
+        network_mode: "host"
