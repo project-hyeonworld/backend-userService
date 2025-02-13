@@ -1,13 +1,6 @@
 version: '3'
 
 services:
-    spring:
-        build:
-            context: ./spring
-            dockerfile: Dockerfile
-        image: {SERVICES_SPRING_IMAGE_NAME}
-        restart: always
-        network_mode: "host"
     mysql:
         build:
             context: ./mysql
@@ -18,3 +11,28 @@ services:
         volumes:
             - ./mysql_data:/var/lib/mysql
         network_mode: "host"
+    spring:
+        build:
+            context: ./spring
+            dockerfile: Dockerfile
+        image: {SERVICES_SPRING_IMAGE_NAME}
+        restart: always
+        network_mode: "host"
+        depends_on:
+            - mysql
+    zookeeper:
+        build:
+            context: ./zookeeper
+            dockerfile: Dockerfile
+        container_name: zookeeper
+        network_mode: "host"
+    kafka:
+      build:
+            context: ./kafka
+            dockerfile: Dockerfile
+      container_name: kafka
+      network_mode: "host"
+      volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+      depends_on:
+            - zookeeper
