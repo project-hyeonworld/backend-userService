@@ -3,7 +3,6 @@ package io.userservice.api.user.presentation.feignClient;
 import io.userservice.api.user.business.UserService;
 import io.userservice.api.user.presentation.controller.dto.res.UserNameRelationTypeResponse;
 import io.userservice.api.user.presentation.controller.dto.res.UserRelationTypeResponse;
-import jakarta.ws.rs.Path;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
