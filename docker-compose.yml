@@ -13,7 +13,7 @@ services:
         build:
             context: ./spring
             dockerfile: Dockerfile
-        image: {SERVICES_SPRING_IMAGE_NAME}
+        image: "{SERVICES_SPRING_IMAGE_NAME}"
         restart: always
         network_mode: "host"
         depends_on:
