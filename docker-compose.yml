@@ -23,7 +23,7 @@ services:
             context: ./zookeeper
             dockerfile: Dockerfile
         ports:
-            - {DOCKER_ZOOKEEPER_PORT}:{DOCKER_ZOOKEEPER_PORT}
+            - "{DOCKER_ZOOKEEPER_PORT}:{DOCKER_ZOOKEEPER_PORT}"
     kafka:
         build:
             context: ./kafka
@@ -31,6 +31,6 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         ports:
-            - {DOCKER_KAFKA_PORT}:{DOCKER_KAFKA_PORT}
+            - "{DOCKER_KAFKA_PORT}:{DOCKER_KAFKA_PORT}"
         depends_on:
             - zookeeper
