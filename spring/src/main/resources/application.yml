@@ -1,5 +1,5 @@
 server:
-  port: {APPLICATION_PORT}
+  port: {MY_APPLICATION_PORT}
 
 spring:
   cloud:
@@ -12,4 +12,4 @@ spring:
   profiles:
     active: {SPRING_PROFILE_ACTIVE}
   config:
-    import: configserver:http://{MY_BACKEND_CONFIG_SERVER_IP}:{MY_BACKEND_CONFIG_SERVER_PORT}
+    import: configserver:http://{BACKEND_CONFIG_SERVER_IP}:{BACKEND_CONFIG_SERVER_PORT}
